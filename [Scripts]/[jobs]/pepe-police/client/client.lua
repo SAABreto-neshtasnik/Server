@@ -1021,10 +1021,18 @@ function GetVehicleList()
     return Vehicles
 end
 
+-- function SetWeaponSeries()
+--  Config.Items.items[1].info.serie = Framework.Functions.GetPlayerData().job.serial
+--  Config.Items.items[2].info.serie = Framework.Functions.GetPlayerData().job.serial
+--  Config.Items.items[3].info.serie = Framework.Functions.GetPlayerData().job.serial
+-- end
+
 function SetWeaponSeries()
- Config.Items.items[1].info.serie = Framework.Functions.GetPlayerData().job.serial
- Config.Items.items[2].info.serie = Framework.Functions.GetPlayerData().job.serial
- Config.Items.items[3].info.serie = Framework.Functions.GetPlayerData().job.serial
+    for k, v in pairs(Config.Items.items) do
+        if k < 6 then
+            Config.Items.items[k].info.serie = tostring(Framework.Shared.RandomInt(2) .. Framework.Shared.RandomStr(3) .. Framework.Shared.RandomInt(1) .. Framework.Shared.RandomStr(2) .. Framework.Shared.RandomInt(3) .. Framework.Shared.RandomStr(4))
+        end
+    end
 end
 
 function GetGarageStatus()
