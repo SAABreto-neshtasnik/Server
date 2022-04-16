@@ -39,19 +39,17 @@ end)
 
 -- Air Control
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(4)
-		if LoggedIn then
-        	local Vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
-        	if DoesEntityExist(Vehicle) and not IsEntityDead(Vehicle) then
-        	    local Model = GetEntityModel(Vehicle)
-        	    if not IsThisModelABoat(Model) and not IsThisModelAHeli(Model) and not IsThisModelAPlane(Model) and IsEntityInAir(Model) then
-        	        DisableControlAction(0, 59)
-        	        DisableControlAction(0, 60)
-        	    end
-        	end
-		end
+        Wait(4)
+        local veh = GetVehiclePedIsIn(PlayerPedId(), false)
+        if DoesEntityExist(veh) and not IsEntityDead(veh) then
+            local model = GetEntityModel(veh)
+            if not IsThisModelABoat(model) and not IsThisModelAHeli(model) and not IsThisModelAPlane(model) and not IsThisModelABike(model) and not IsThisModelABicycle(model) and IsEntityInAir(veh) then
+                DisableControlAction(0, 59)
+                DisableControlAction(0, 60)
+            end
+        end
     end
 end)
 
