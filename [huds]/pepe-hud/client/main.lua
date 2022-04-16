@@ -45,6 +45,7 @@ AddEventHandler("Framework:Client:OnPlayerLoaded", function()
     QBHud.Show = true
     showRoundMap()
     PlayerJob = Framework.Functions.GetPlayerData().job
+    TriggerEvent('pepe-hud:client:UpdateVoiceProximity', 2)
 end)
 
 local StressGain = 0
@@ -234,44 +235,50 @@ Citizen.CreateThread(function()
     end
 end)
 
-showRoundMap = function()
-    local posX = -0.01
-    local posY = 0.00-- 0.0152
-    
-    local width = 0.200
-    local height = 0.28 --0.354
-    
-    Citizen.CreateThread(function()
+showRoundMap = function()    
+    CreateThread(function()
         RequestStreamedTextureDict("circlemap", false)
         while not HasStreamedTextureDictLoaded("circlemap") do
             Wait(100)
         end
     
         AddReplaceTexture("platform:/textures/graphics", "radarmasksm", "circlemap", "radarmasksm")
-    
         SetMinimapClipType(1)
-        SetMinimapComponentPosition('minimap', 'L', 'B', posX, posY, width, height)
-        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.0, 0.032, 0.101, 0.259)
-        SetMinimapComponentPosition('minimap_mask', 'L', 'B', posX, posY, width, height)
-        SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.01, 0.024, 0.256, 0.337)
-    
+        SetMinimapComponentPosition("minimap", "L", "B", 0.025 - 0.019, -0.03, 0.153, 0.22)
+        SetMinimapComponentPosition("minimap_mask", "L", "B", 0.135 - 0.019, 0.12, 0.093, 0.164)
+        SetMinimapComponentPosition("minimap_blur", "L", "B", 0.012 - 0.019, 0.022, 0.256, 0.337)
+
         local minimap = RequestScaleformMovie("minimap")
         SetRadarBigmapEnabled(true, false)
         Wait(0)
         SetRadarBigmapEnabled(false, false)
-    
+        
         while true do
             Wait(0)
             BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")
             ScaleformMovieMethodAddParamInt(3)
             EndScaleformMovieMethod()
+            if IsPedInAnyVehicle(GLOBAL_PED) then
+                if IsWaypointActive() then
+                    SetTextFont(0)
+                    SetTextProportional(1)
+                    SetTextScale(0.0, 0.3)
+                    SetTextColour(244, 244, 244, 255)
+                    SetTextDropshadow(0, 0, 0, 0, 128)
+                    SetTextEdge(1, 0, 0, 0, 255)
+                    SetTextDropShadow()
+                    SetTextOutline()
+                    SetTextEntry("STRING")
+                    DrawText(0.0135, 0.925)
+                end
+            end
         end
     end)
     
     local isPause = false
     local uiHidden = false
     
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             Wait(0)
             if IsBigmapActive() or IsPauseMenuActive() and not isPause or IsRadarHidden() then
@@ -290,4 +297,3 @@ showRoundMap = function()
         end
     end)
 end
-

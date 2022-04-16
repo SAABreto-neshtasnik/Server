@@ -225,36 +225,6 @@ p {
     left: 4vh;
 }
 
-.voice-block {
-    display: inline-block;
-    border-radius: 50%;
-    height: .7vh;
-    width: .7vh;
-    background-color: rgb(255, 255, 255, 0.5);
-}
-
-[data-voicetype="3"] {
-    position: absolute;
-    top: -0.6vh;
-
-    left: 1.0vh;
-
-    left: .2vh;
-
-}
-
-[data-voicetype="2"] {
-    position: absolute;
-    top: -1vh;
-    left: 2.15vh;
-}
-
-[data-voicetype="1"] {
-    position: absolute;
-    top: -0.6vh;
-    left: 3.3vh;
-}
-
 
 .progress {
     -webkit-transition: 0.35s stroke-dashoffset;

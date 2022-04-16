@@ -241,7 +241,6 @@ AddEventHandler('pepe-housing:server:logout', function()
  local src = source
  local Player = Framework.Functions.GetPlayer(src)
  local PlayerItems = Player.PlayerData.items
- TriggerClientEvent('pepe-radio:onRadioDrop', src)
  if PlayerItems ~= nil then
     Framework.Functions.ExecuteSql(true, "UPDATE `characters_metadata` SET `inventory` = '"..Framework.EscapeSqli(json.encode(MyItems)).."' WHERE `citizenid` = '"..Player.PlayerData.citizenid.."'")
  else

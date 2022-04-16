@@ -190,6 +190,7 @@ RegisterCommand('+cycleproximity', function()
 		voiceMode = voiceMode - 1
 	})
 	TriggerEvent('pma-voice:setTalkingMode', voiceMode)
+	TriggerEvent('pepe-hud:client:UpdateVoiceProximity', voiceMode + 0.0)
 end, false)
 RegisterCommand('-cycleproximity', function()
 end)

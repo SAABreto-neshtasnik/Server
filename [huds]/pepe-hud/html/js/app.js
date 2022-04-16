@@ -35,9 +35,7 @@ var CurrentProx = 0;
 
     QBHud.ToggleSeatbelt = function(data) {
         if (data.seatbelt) {
-            //$(".car-seatbelt-info img").attr('src', './seatbelt-on.png');
         } else {
-            //$(".car-seatbelt-info img").attr('src', './seatbelt.png');
         }
     };
 
@@ -45,69 +43,9 @@ var CurrentProx = 0;
         if (data.show) {
             $(".ui-car-container").fadeIn();
             $(".hnitrous").fadeIn(3000);
-            //$("[data-voicetype='1']").animate({"top": "13.6vh"});
-            //$("[data-voicetype='2']").animate({"top": "14vh"});
-            //$("[data-voicetype='3']").animate({"top": "14.8vh"});
-            //$("[data-voicetype='1']").animate({"left": "3.8vh"});
-            //$("[data-voicetype='2']").animate({"left": "2.8vh"});
-            //$("[data-voicetype='3']").animate({"left": "2vh"});
-
-            //$('.hp-circle').animate({"top": "17.6vh"});
-            //$('.armor-circle').animate({"top": "20.5vh"});
-            //$('.food-circle').animate({"top": "14vh"});
-            //$('.thirst-circle').animate({"top": "17.5vh"});
-            //$('.stress-circle').animate({"top": "20.5vh"});
-
-            //$('.hp-circle').animate({"left": "30.21vh"});
-            //$('.armor-circle').animate({"left": "27.5vh"});
-            //$('.food-circle').animate({"left": "2.9vh"});
-            //$('.thirst-circle').animate({"left": "4.8vh"});
-            //$('.stress-circle').animate({"left": "7.5vh"});
-
-            //$(".ui-car-container").fadeOut();
-            //$("[data-voicetype='1']").animate({"top": "2.4vh"});
-           // $("[data-voicetype='2']").animate({"top": "2vh"});
-            //$("[data-voicetype='3']").animate({"top": "2.4vh"});
-            //$("[data-voicetype='1']").animate({"left": "2.5vh"});
-            //$("[data-voicetype='2']").animate({"left": "1.35vh"});
-            //$("[data-voicetype='3']").animate({"left": ".2vh"});
-
-            //$('.food-circle').animate({"top": "22vh"});
-            //$('.thirst-circle').animate({"top": "22vh"});
-            //$('.stress-circle').animate({"top": "22vh"});
-
-            //$('.hp-circle').animate({"left": "-2vh"});
-            //$('.armor-circle').animate({"margin-left": "3.5vh"});
-            //$('.food-circle').animate({"margin-left": "9vh"});
-            //$('.thirst-circle').animate({"margin-left": "14.5vh"});
-            //$('.stress-circle').animate({"margin-left": "20vh"});
-
-            //$('.hp-circle').animate({"top": "22vh"});
-            //$('.armor-circle').animate({"top": "22vh"});
         } else {
             $(".ui-car-container").fadeOut();
-            //if (data.on) {
             $('.hnitrous').fadeOut(3000);
-            //}
-            //$("[data-voicetype='1']").animate({ "top": "22vh"});
-            //$("[data-voicetype='2']").animate({ "top": "22vh"});
-            //$("[data-voicetype='3']").animate({ "top": "22vh"});
-            //$("[data-voicetype='1']").animate({"left": "2.5vh"});
-            //$("[data-voicetype='2']").animate({"left": "1.35vh"});
-            //$("[data-voicetype='3']").animate({"left": ".2vh"});
-
-            //$('.food-circle').animate({ "top": "22vh"});
-            //$('.thirst-circle').animate({ "top": "22vh"});
-            //$('.stress-circle').animate({ "top": "22vh"});
-
-            //$('.hp-circle').animate({"left": "-2vh"});
-            //$('.armor-circle').animate({"margin-left": "3.5vh"});
-            //$('.food-circle').animate({"margin-left": "9vh"});
-            //$('.thirst-circle').animate({"margin-left": "14.5vh"});
-            //$('.stress-circle').animate({"margin-left": "20vh"});
-
-            //$('.hp-circle').animate({ "top": "22vh"});
-            //$('.armor-circle').animate({ "top": "22vh"});
         }
     };
 
@@ -121,7 +59,6 @@ var CurrentProx = 0;
         $(".ui-container").css("display", Show);
 
         // HP Bar
-        ProgressVoip(data.talking, ".mic");
         Progress(data.health - 100, ".hp");
         if (data.health <= 197) {
             $('.hvida').fadeIn(3000);
@@ -134,6 +71,18 @@ var CurrentProx = 0;
         } else {
             $('.vida').css("stroke", "#498949");
         }
+
+        if (data.talking) {
+            $(".mic").css({"stroke":"#ffaf02"});
+            $(".mr").css({"fill":"#ffaf02"});
+            ProgressVoip(data.talking, CurrentProx);
+        } else {
+            $('.mic').css({"stroke":"#F5F5F5"});
+            $(".mr").css({"fill":"#F5F5F5"});
+            let data = {'proxmity' : CurrentProx}
+            QBHud.UpdateProximity(data)
+        }
+        
         Progress(data.armor, ".armor");
         if (data.armor >= 6) {
             $('.harmor').fadeIn(3000);
@@ -206,20 +155,23 @@ var CurrentProx = 0;
     };
 
     QBHud.UpdateProximity = function(data) {
-        if (data.prox == 1) {
-            $("[data-voicetype='1']").fadeIn(150);
-            $("[data-voicetype='2']").fadeOut(150);
-            $("[data-voicetype='3']").fadeOut(150);
-        } else if (data.prox == 2) {
-            $("[data-voicetype='1']").fadeIn(150);
-            $("[data-voicetype='2']").fadeIn(150);
-            $("[data-voicetype='3']").fadeOut(150);
-        } else if (data.prox == 3) {
-            $("[data-voicetype='1']").fadeIn(150);
-            $("[data-voicetype='2']").fadeIn(150);
-            $("[data-voicetype='3']").fadeIn(150);
+        let state = 100
+        CurrentProx = data.proxmity
+        switch(data.proxmity) {
+            case 1:
+                state = 33
+                break;
+            case 2:
+                state = 66
+                break;
+            case 3:
+                state = 100
+                break;
+            default:
+                state = 100;
+                break;
         }
-        CurrentProx = data.prox;
+        Progress(state, '.mic')
     }
 
     QBHud.SetTalkingState = function(data) {
@@ -257,17 +209,17 @@ var CurrentProx = 0;
     };
 
     function ProgressVoip(percent, element) {
-        var circle = document.querySelector(element);
-        var radius = circle.r.baseVal.value;
-        var circumference = radius * 200 * Math.PI;
-      
-        circle.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle.style.strokeDashoffset = `${circumference}`;
-      
-        const offset = circumference - ((-percent * 100) / 100 / 100) * circumference;
-        circle.style.strokeDashoffset = -offset;
-        
-    }
+        //   var circle = document.querySelector(element);
+        //   var radius = circle.r.baseVal.value;
+        //   var circumference = radius * 200 * Math.PI;
+         
+          // circle.style.strokeDasharray = `${circumference} ${circumference}`;
+       //    circle.style.strokeDashoffset = `${circumference}`;
+         
+        //   const offset = circumference - ((-percent * 100) / 100 / 100) * circumference;
+           //circle.style.strokeDashoffset = -offset;
+           
+       }
 
     function Progress(percent, element) {
         var circle = document.querySelector(element);
@@ -339,8 +291,8 @@ var CurrentProx = 0;
                 case "nitrous":
                     QBHud.UpdateNitrous(event.data);
                     break;
-                case "UpdateProximity":
-                    QBHud.UpdateProximity(event.data);
+                    case "UpdateProximity":
+                        QBHud.UpdateProximity(event.data);
                     break;
                 case "talking":
                     QBHud.SetTalkingState(event.data);

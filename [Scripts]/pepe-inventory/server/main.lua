@@ -558,9 +558,6 @@ AddEventHandler('pepe-inventory:server:SetInventoryData', function(fromInventory
 					end
 					local itemInfo = Framework.Shared.Items[fromItemData.name:lower()]
 					AddToDrop(toInventory, toSlot, itemInfo["name"], fromAmount, fromItemData.info)
-					if itemInfo["name"] == "radio" then
-					TriggerClientEvent('pepe-radio:drop:radio', src)
-					end
 				end
 			end
 		else
@@ -940,9 +937,6 @@ AddEventHandler('pepe-inventory:server:SetInventoryData', function(fromInventory
 					if toItemData.name ~= fromItemData.name then
 						Player.Functions.RemoveItem(toItemData.name, toAmount, toSlot)
 						AddToDrop(fromInventory, toSlot, itemInfo["name"], toAmount, toItemData.info)
-						if itemInfo["name"] == "radio" then
-						TriggerClientEvent('pepe-radio:drop:radio', src)
-						end
 						TriggerEvent("pepe-logs:server:SendLog", "drop", "Swapped item", "orange", "**".. GetPlayerName(src) .. "** (CID: *"..Player.PlayerData.citizenid.."* | id: *"..src.."*) Swapped item; name: **"..toItemData.name.."**, amount: **" .. toAmount .. "** with item; name: **"..fromItemData.name.."**, amount: **" .. fromAmount .. "** - dropid: *" .. fromInventory .. "*")
 					else
 						TriggerEvent("pepe-logs:server:SendLog", "drop", "Stacked item", "orange", "**".. GetPlayerName(src) .. "** (CID: *"..Player.PlayerData.citizenid.."* | id: *"..src.."*) Stacked item; name: **"..toItemData.name.."**, amount: **" .. toAmount .. "** - from dropid: *" .. fromInventory .. "*")
@@ -964,18 +958,12 @@ AddEventHandler('pepe-inventory:server:SetInventoryData', function(fromInventory
 						local itemInfo = Framework.Shared.Items[toItemData.name:lower()]
 						RemoveFromDrop(toInventory, toSlot, itemInfo["name"], toAmount)
 						AddToDrop(fromInventory, fromSlot, itemInfo["name"], toAmount, toItemData.info)
-						if itemInfo["name"] == "radio" then
-						TriggerClientEvent('pepe-radio:drop:radio', src)
-						end
 					end
 				else
 					--Player.PlayerData.items[fromSlot] = nil
 				end
 				local itemInfo = Framework.Shared.Items[fromItemData.name:lower()]
 				AddToDrop(toInventory, toSlot, itemInfo["name"], fromAmount, fromItemData.info)
-				if itemInfo["name"] == "radio" then
-			    TriggerClientEvent('pepe-radio:drop:radio', src)
-				end
 			end
 		else
 			TriggerClientEvent("Framework:Notify", src, "Item does not exist", "error")
@@ -1519,7 +1507,6 @@ function CreateNewDrop(source, fromSlot, toSlot, itemAmount)
 		TriggerClientEvent("pepe-inventory:client:DropItemAnim", source)
 		TriggerClientEvent("pepe-inventory:client:AddDropItem", -1, dropId, source)
 		if itemData.name:lower() == "radio" then
-		TriggerClientEvent('pepe-radio:drop:radio', source)
 		end
 	else
 		TriggerClientEvent("Framework:Notify", src, "You dont have this item.", "error")

@@ -1,5 +1,46 @@
+Framework = nil
+
+RegisterNetEvent('Framework:Client:OnPlayerLoaded')
+AddEventHandler('Framework:Client:OnPlayerLoaded', function()
+    Citizen.SetTimeout(500, function()
+        TriggerEvent("Framework:GetObject", function(obj) Framework = obj end)   
+        local plyJob = Framework.Functions.GetPlayerData().job.name 
+        if plyJob == 'police' then 
+            for i = 1, 2 do 
+                exports['rp-radio']:GivePlayerAccessToFrequency(i)
+            end
+        elseif plyJob == 'ambulance' then 
+            for i = 3, 4 do 
+                exports['rp-radio']:GivePlayerAccessToFrequency(i)
+            end
+		elseif plyJob == 'mechanic' then 
+            for i = 5, 6 do 
+                exports['rp-radio']:GivePlayerAccessToFrequency(i)
+            end
+        end
+    end)
+end)
+
+RegisterNetEvent('Framework:Client:OnJobUpdate')
+AddEventHandler('Framework:Client:OnJobUpdate', function(JobInfo)
+    local plyJob = JobInfo.name
+    if plyJob == 'police' then
+        for i = 1, 2 do 
+            exports['rp-radio']:GivePlayerAccessToFrequency(i)
+        end
+    elseif plyJob == 'ambulance' then 
+        for i = 3, 4 do 
+            exports['rp-radio']:GivePlayerAccessToFrequency(i)
+        end
+	elseif plyJob == 'mechanic' then 
+        for i = 5, 6 do 
+            exports['rp-radio']:GivePlayerAccessToFrequency(i)
+        end
+    end
+end)
+
 local Radio = {
-	Has = true,
+	Has = false,
 	Open = false,
 	On = false,
 	Enabled = true,

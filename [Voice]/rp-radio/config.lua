@@ -1,8 +1,8 @@
 radioConfig = {
     Controls = {
         Activator = { -- Open/Close Radio
-            Name = "INPUT_REPLAY_START_STOP_RECORDING_SECONDARY", -- Control name
-            Key = 289, -- F2
+            Name = "INPUT_CELLPHONE_CAMERA_FOCUS_LOCK", -- Control name
+            Key = 182, -- F2 NO! L
         },
         Secondary = {
             Name = "INPUT_SPRINT",
@@ -40,13 +40,18 @@ radioConfig = {
     Frequency = {
         Private = { -- List of private frequencies
             [1] = true, -- Make 1 a private frequency
+            [2] = true,
+            [3] = true,
+            [4] = true,
+            [5] = true,
+            [6] = true,
         }, -- List of private frequencies
         Current = 1, -- Don't touch
         CurrentIndex = 1, -- Don't touch
         Min = 1, -- Minimum frequency
-        Max = 1000, -- Max number of frequencies
+        Max = 800, -- Max number of frequencies
         List = {}, -- Frequency list, Don't touch
         Access = {}, -- List of freqencies a player has access to
     },
-    AllowRadioWhenClosed = false -- Allows the radio to be used when not open (uses police radio animation) 
+    AllowRadioWhenClosed = true -- Allows the radio to be used when not open (uses police radio animation) 
 }

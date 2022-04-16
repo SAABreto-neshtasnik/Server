@@ -27,7 +27,6 @@ AddEventHandler('Framework:Client:OnPlayerLoaded', function()
       PlayerJob, onDuty = PlayerData.job, PlayerData.job.onduty 
       if PlayerJob.name == 'police' and PlayerData.job.onduty then
        TriggerEvent('pepe-radialmenu:client:update:duty:vehicles')
-       TriggerEvent('pepe-police:client:set:radio')
        TriggerServerEvent("pepe-police:server:UpdateBlips")
        TriggerServerEvent("pepe-police:server:UpdateCurrentCops")
       end
@@ -860,17 +859,6 @@ AddEventHandler('pepe-police:client:remove:object', function(objectId)
     NetworkRequestControlOfEntity(ObjectList[objectId].object)
     DeleteObject(ObjectList[objectId].object)
     ObjectList[objectId] = nil
-end)
-
-RegisterNetEvent('pepe-police:client:set:radio')
-AddEventHandler('pepe-police:client:set:radio', function()
- Framework.Functions.TriggerCallback('Framework:HasItem', function(HasItem)
-    if HasItem then
-        -- exports['pepe-radio']:SetRadioState(true)
-        exports['pepe-radio']:JoinRadio(1, 1)
-        Framework.Functions.Notify("Connected with OC-01", "info", 8500)
-    end
- end, "radio")
 end)
 
 RegisterNetEvent('police:client:SeizeCash')
