@@ -182,7 +182,7 @@ AddEventHandler('pepe-weapons:client:reload:ammo', function(AmmoType, AmmoName)
  if Config.WeaponsList[Weapon] ~= nil and Config.WeaponsList[Weapon]['AmmoType'] ~= nil then
  local NewAmmo = WeaponBullets + Config.WeaponsList[Weapon]['MaxAmmo']
  if Config.WeaponsList[Weapon]['AmmoType'] == AmmoType then
-    if WeaponBullets <= 1 then
+    if WeaponBullets <= 250 then
 	reloading = true
     TriggerServerEvent('Framework:Server:RemoveItem', AmmoName, 1)
     TriggerEvent("pepe-inventory:client:ItemBox", Framework.Shared.Items[AmmoName], "remove")

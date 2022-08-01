@@ -308,7 +308,7 @@ function Queue:AddToConnecting(ids, ignorePos, autoRemove, done)
     local function remove()
         if not autoRemove then return end
 
-        done(Config.Language.connectingerr .."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate")
+        done(Config.Language.connectingerr .."\n🔸 Look on our discord for more information: https://discord.gg/")
         Queue:RemoveFromConnecting(ids)
         Queue:RemoveFromQueue(ids)
         Queue:DebugPrint("Player could not be added to the connecting list")
@@ -489,7 +489,7 @@ local function playerConnect(source, setKickReason, deferrals)
 
     if not ids then
         -- prevent joining
-        done(Config.Language.idrr .."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate")
+        done(Config.Language.idrr .."\n🔸 Check out our discord for more information: https://discord.gg/")
         CancelEvent()
         if name ~= nil then
             Queue:DebugPrint("Dropped " .. name .. ", couldn't retrieve any of their id's")
@@ -499,7 +499,7 @@ local function playerConnect(source, setKickReason, deferrals)
 
     if Config.RequireSteam and not Queue:IsSteamRunning(src) then
         -- prevent joining
-        done(Config.Language.steam .."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate")
+        done(Config.Language.steam .."\n🔸 Check out our discord for more information: https://discord.gg/")
         CancelEvent()
         return
     end
@@ -527,7 +527,7 @@ local function playerConnect(source, setKickReason, deferrals)
     while allow == nil do Citizen.Wait(0) end
     if not allow then return end
 
-    if Config.PriorityOnly and not Queue:IsPriority(ids) then done(Config.Language.wlonly .."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate") return end
+    if Config.PriorityOnly and not Queue:IsPriority(ids) then done(Config.Language.wlonly .."\n🔸 Check out our discord for more information: https://discord.gg/") return end
 
     local rejoined = false
 
@@ -567,7 +567,7 @@ local function playerConnect(source, setKickReason, deferrals)
     local pos, data = Queue:IsInQueue(ids, true)
     
     if not pos or not data then
-        done(Config.Language.err .. " [1]\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate")
+        done(Config.Language.err .. " [1]\n🔸 Check out our discord for more information: https://discord.gg/")
 
         Queue:RemoveFromQueue(ids)
         Queue:RemoveFromConnecting(ids)
@@ -588,7 +588,7 @@ local function playerConnect(source, setKickReason, deferrals)
         return
     end
     
-    update(string_format(Config.Language.pos .. ((Queue:TempSize() and Config.ShowTemp) and " (" .. Queue:TempSize() .. " temp)" or "00:00:00"), pos, Queue:GetSize(), "").."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate")
+    update(string_format(Config.Language.pos .. ((Queue:TempSize() and Config.ShowTemp) and " (" .. Queue:TempSize() .. " temp)" or "00:00:00"), pos, Queue:GetSize(), "").."\n🔸 Check out our discord for more information: https://discord.gg/")
 
     if rejoined then return end
 
@@ -634,7 +634,7 @@ local function playerConnect(source, setKickReason, deferrals)
             Citizen.Wait(500)
 
             if not added then
-                done(Config.Language.connectingerr .."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate")
+                done(Config.Language.connectingerr .."\n🔸 Check out our discord for more information: https://discord.gg/")
                 CancelEvent()
                 return
             end
@@ -653,7 +653,7 @@ local function playerConnect(source, setKickReason, deferrals)
         local seconds = data.queuetime()
         local qTime = string_format("%02d", math_floor((seconds % 86400) / 3600)) .. ":" .. string_format("%02d", math_floor((seconds % 3600) / 60)) .. ":" .. string_format("%02d", math_floor(seconds % 60))
 
-        local msg = string_format(Config.Language.pos .. ((Queue:TempSize() and Config.ShowTemp) and " (" .. Queue:TempSize() .. " temp)" or ""), pos, Queue:GetSize(), qTime).."\n🔸 Kijk op onze discord voor meer informatie: https://discord.gg/N4vhate"
+        local msg = string_format(Config.Language.pos .. ((Queue:TempSize() and Config.ShowTemp) and " (" .. Queue:TempSize() .. " temp)" or ""), pos, Queue:GetSize(), qTime).."\n🔸 Check out our discord for more information: https://discord.gg/"
         update(msg, data.deferrals)
     end
 end
